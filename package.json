@@ -1,6 +1,6 @@
 {
   "name": "@scola/d3-helper",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Helper",
   "repository": "github:scola84/node-d3-helper",
   "author": "M.C. van den Boogaart <scola@kvdb.name>",
