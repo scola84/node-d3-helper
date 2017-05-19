@@ -1,10 +1,10 @@
 import { selection } from 'd3';
 
-selection.prototype.position = function position(style = false) {
+selection.prototype.position = function position() {
   return {
-    bottom: this.bottom(style),
-    left: this.left(style),
-    right: this.right(style),
-    top: this.top(style)
+    bottom: this.computedStyle('bottom'),
+    left: this.computedStyle('left'),
+    right: this.computedStyle('right'),
+    top: this.computedStyle('top')
   };
 };

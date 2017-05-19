@@ -1,8 +1,4 @@
-import './src/bottom';
+import './src/bounding-rect';
+import './src/computed-style';
 import './src/dimensions';
-import './src/height';
-import './src/left';
 import './src/position';
-import './src/right';
-import './src/top';
-import './src/width';

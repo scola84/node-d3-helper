@@ -1,8 +1,8 @@
 import { selection } from 'd3';
 
-selection.prototype.dimensions = function dimensions(style = false) {
+selection.prototype.dimensions = function dimensions() {
   return {
-    height: this.height(style),
-    width: this.width(style)
+    height: this.boundingRect('height'),
+    width: this.boundingRect('width')
   };
 };
