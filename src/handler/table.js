@@ -15,6 +15,16 @@ export default class TableHandler extends AbstractHandler {
     return this;
   }
 
+  start() {
+    super.start();
+
+    if (this._model.has('id')) {
+      this._select(this._model.remote());
+    }
+
+    return this;
+  }
+
   _bindState() {
     this._state
       .if('auth').equal('valid')

@@ -25,6 +25,16 @@ export default class ListHandler extends AbstractHandler {
     return this;
   }
 
+  start() {
+    super.start();
+
+    if (this._model.has('id')) {
+      this._select(this._model.remote());
+    }
+
+    return this;
+  }
+
   _bindState() {
     this._state
       .if('auth').equal('valid')
@@ -65,7 +75,7 @@ export default class ListHandler extends AbstractHandler {
   _set(setEvent) {
     const cancel =
       setEvent.changed === false ||
-      (setEvent.name || '').match(/\w*id$/) === null;
+      setEvent.name !== 'id';
 
     if (cancel) {
       return;
