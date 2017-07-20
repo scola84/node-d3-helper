@@ -40,6 +40,10 @@ export default class ObjectHandler extends AbstractHandler {
   }
 
   _error(error) {
+    if (error.status !== 404) {
+      return;
+    }
+
     this.disable(error
       .prefix('string', 'scola.error.short')
       .toString(this._string));
@@ -48,7 +52,7 @@ export default class ObjectHandler extends AbstractHandler {
   _set(setEvent) {
     const cancel =
       setEvent.changed === false ||
-      (setEvent.name || '').match(/\w*id$/) === null;
+      setEvent.name !== 'id';
 
     if (cancel) {
       return;
