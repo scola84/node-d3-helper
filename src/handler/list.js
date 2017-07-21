@@ -51,7 +51,7 @@ export default class ListHandler extends AbstractHandler {
 
   _error(error) {
     this._list.message(error
-      .prefix('string', 'scola.error.short')
+      .prefix('string', 'scola.error')
       .toString(this._string));
   }
 
