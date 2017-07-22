@@ -2,9 +2,9 @@ export default class AbstractHandler {
   constructor() {
     this._client = null;
     this._model = null;
-    this._pubsub = true;
     this._state = null;
     this._string = null;
+    this._subscribe = true;
 
     this._handleAuth = (v) => this._auth(v);
     this._handleError = (e) => this._error(e);
@@ -31,12 +31,12 @@ export default class AbstractHandler {
     return this;
   }
 
-  pubsub(value = null) {
+  subscribe(value = null) {
     if (value === null) {
-      return this._pubsub;
+      return this._subscribe;
     }
 
-    this._pubsub = value;
+    this._subscribe = value;
     return this;
   }
 
@@ -79,25 +79,37 @@ export default class AbstractHandler {
   }
 
   _bindClient() {
-    this._client.on('auth', this._handleAuth);
+    if (this._client) {
+      this._client.setMaxListeners(this._client.getMaxListeners() + 1);
+      this._client.on('auth', this._handleAuth);
+    }
   }
 
   _unbindClient() {
-    this._client.removeListener('auth', this._handleAuth);
+    if (this._client) {
+      this._client.setMaxListeners(this._client.getMaxListeners() - 1);
+      this._client.removeListener('auth', this._handleAuth);
+    }
   }
 
   _bindModel() {
-    this._model.on('error', this._handleError);
-    this._model.on('publish', this._handlePublish);
-    this._model.on('select', this._handleSelect);
-    this._model.on('set', this._handleSet);
+    if (this._model) {
+      this._model.setMaxListeners(this._model.getMaxListeners() + 1);
+      this._model.on('error', this._handleError);
+      this._model.on('publish', this._handlePublish);
+      this._model.on('select', this._handleSelect);
+      this._model.on('set', this._handleSet);
+    }
   }
 
   _unbindModel() {
-    this._model.removeListener('error', this._handleError);
-    this._model.removeListener('publish', this._handlePublish);
-    this._model.removeListener('select', this._handleSelect);
-    this._model.removeListener('set', this._handleSet);
+    if (this._model) {
+      this._model.setMaxListeners(this._model.getMaxListeners() - 1);
+      this._model.removeListener('error', this._handleError);
+      this._model.removeListener('publish', this._handlePublish);
+      this._model.removeListener('select', this._handleSelect);
+      this._model.removeListener('set', this._handleSet);
+    }
   }
 
   _auth(value) {
@@ -105,7 +117,7 @@ export default class AbstractHandler {
   }
 
   _publish() {
-    if (this._pubsub === true) {
+    if (this._subscribe === true) {
       this._model.select();
     }
   }
