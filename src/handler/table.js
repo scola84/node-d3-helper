@@ -31,14 +31,8 @@ export default class TableHandler extends AbstractHandler {
       .if('l.off').number()
       .if('l.cnt').number()
       .then(() => {
-        this._table.message(false);
         this._model.select();
       });
-  }
-
-  _empty() {
-    this._table.message(this._string
-      .format('scola.error.short.invalid_data'));
   }
 
   _error(error) {
@@ -48,11 +42,7 @@ export default class TableHandler extends AbstractHandler {
   }
 
   _select(data) {
-    if (data.length === 0) {
-      this._empty();
-      return;
-    }
-
+    this._table.message(false);
     this._table.render(data);
   }
 

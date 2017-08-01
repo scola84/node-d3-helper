@@ -54,11 +54,6 @@ export default class ListHandler extends AbstractHandler {
       });
   }
 
-  _empty() {
-    this._list.message(this._string
-      .format('scola.error.invalid_data'));
-  }
-
   _error(error) {
     this._list.message(error
       .prefix('string', 'scola.error')
@@ -66,6 +61,7 @@ export default class ListHandler extends AbstractHandler {
   }
 
   _select(data) {
+    this._list.message(false);
     this._list.clear();
 
     const prepend = this._prepend !== null ?
@@ -75,11 +71,7 @@ export default class ListHandler extends AbstractHandler {
       this._list.append(prepend);
     }
 
-    if (data.length === 0) {
-      this._empty();
-    } else {
-      this._list.render(data);
-    }
+    this._list.render(data);
 
     const append = this._append !== null ?
       this._append() : null;
