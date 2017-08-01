@@ -42,7 +42,6 @@ export default class TableHandler extends AbstractHandler {
   }
 
   _select(data) {
-    this._table.message(false);
     this._table.render(data);
   }
 
