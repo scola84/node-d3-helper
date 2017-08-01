@@ -5,7 +5,6 @@ export default class ListHandler extends AbstractHandler {
     super();
     this._append = null;
     this._list = null;
-    this._prepend = null;
   }
 
   append(value = null) {
@@ -23,15 +22,6 @@ export default class ListHandler extends AbstractHandler {
     }
 
     this._list = value;
-    return this;
-  }
-
-  prepend(value = null) {
-    if (value === null) {
-      return this._prepend;
-    }
-
-    this._prepend = value;
     return this;
   }
 
@@ -61,16 +51,6 @@ export default class ListHandler extends AbstractHandler {
   }
 
   _select(data) {
-    this._list.message(false);
-    this._list.clear();
-
-    const prepend = this._prepend !== null ?
-      this._prepend() : null;
-
-    if (prepend !== null) {
-      this._list.append(prepend);
-    }
-
     this._list.render(data);
 
     const append = this._append !== null ?
