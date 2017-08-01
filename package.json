@@ -8,6 +8,6 @@
   "main": "./index.js",
   "jsnext:main": "./index.js",
   "dependencies": {
-    "d3": "^4.9.1"
+    "d3": "^4.10.0"
   }
 }
